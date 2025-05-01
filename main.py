@@ -1,5 +1,5 @@
 """
-projekt_2.py: druhý projekt do Engeto Online Python Akademie
+projekt_2.py: druhý projekt do Engeto Online Python Akademie - Bulls and Cows
 
 author: Kateřina Stanevová
 email: KStanevova@seznam.cz
