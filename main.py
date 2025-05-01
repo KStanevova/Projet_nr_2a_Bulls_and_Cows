@@ -8,39 +8,51 @@ email: KStanevova@seznam.cz
 import random
 import time
 
-# TODO generuj náhodné 4 ciferné číslo bez opakování
+
 def generate_secret_number():
+    """Generates a random 4-digit number with unique digits."""
     digits = list(range(1, 10))  # číslice 1-9
     random.shuffle(digits)
     secret_number = digits[:4]
     return ''.join(map(str, secret_number))
 
-# TODO ověř, že uživatel zadal 4 ciferné číslo bez opakování
+
 def validate_guess(guess):
+    """Validates the user's guess."""
     if len(guess) != 4:
         return "The number must have exactly 4 digits."
-
     if not guess.isdigit():
         return "The number must contain only digits."
-
     if guess[0] == '0':
         return "The number must not start with a zero."
-
     if len(set(guess)) != 4:
         return "The number must not contain duplicates."
-
     return None
 
-# TODO vyhodnoť, kolik bulls a cows uživatel uhodl
+
 def evaluate_guess(secret, guess):
+    """Evaluates the guess and returns the number of bulls and cows."""
     bulls = sum(1 for s, g in zip(secret, guess) if s == g)
     cows = sum(1 for g in guess if g in secret) - bulls
     return bulls, cows
 
-# TODO hlavní funkce hry
+
+def print_welcome_message():
+    """Prints the welcome message for the game."""
+    separator = "-" * 47
+    message = (
+        f"Hi there!\n"
+        f"{separator}\n"
+        f"I've generated a random 4 digit number for you.\n"
+        f"Let's play a bulls and cows game.\n"
+        f"{separator}"
+    )
+    print(message)
+
+
 def play_game():
-    separator = "-" * 47  # 47 znaků dlouhý separátor
-    print(f"Hi there!\n"f"{separator}\n"f"I've generated a random 4 digit number for you.\n"f"Let's play a bulls and cows game.\n"f"{separator}")
+    """Main function to play the Bulls and Cows game."""
+    print_welcome_message()
 
     secret_number = generate_secret_number()
     start_time = time.time()
@@ -55,26 +67,21 @@ def play_game():
             continue
 
         attempts += 1
-
         bulls, cows = evaluate_guess(secret_number, guess)
 
-        if bulls == 1:
-            bull_text = "bull"
-        else:
-            bull_text = "bulls"
-
-        if cows == 1:
-            cow_text = "cow"
-        else:
-            cow_text = "cows"
+        bull_text = "bull" if bulls == 1 else "bulls"
+        cow_text = "cow" if cows == 1 else "cows"
 
         print(f"{bulls} {bull_text}, {cows} {cow_text}")
 
         if bulls == 4:
-            end_time = time.time()
-            duration = end_time - start_time
-            print(f"That's amazing! You guessed the secret number {secret_number} in {attempts} attempts and {duration:.2f} seconds.")
+            duration = time.time() - start_time
+            print(
+                f"That's amazing! You guessed the secret number {secret_number} "
+                f"in {attempts} attempts and {duration:.2f} seconds."
+            )
             break
+
 
 if __name__ == "__main__":
     play_game()
