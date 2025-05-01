@@ -52,7 +52,6 @@ def print_welcome_message():
     )
     print(message)
 
-
 def play_game():
     """Main function to play the Bulls and Cows game."""
     print_welcome_message()
@@ -72,10 +71,7 @@ def play_game():
         attempts += 1
         bulls, cows = evaluate_guess(secret_number, guess)
 
-        bull_text = "bull" if bulls == 1 else "bulls"
-        cow_text = "cow" if cows == 1 else "cows"
-
-        print(f"{bulls} {bull_text}, {cows} {cow_text}")
+        print(f"{bulls} {'bull' if bulls == 1 else 'bulls'}, {cows} {'cow' if cows == 1 else 'cows'}")
 
         if bulls == 4:
             duration = time.time() - start_time
