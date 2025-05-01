@@ -39,6 +39,9 @@ def evaluate_guess(secret, guess):
 
 def print_welcome_message():
     """Prints the welcome message for the game."""
+    # text = "I've generated a random 4 digit number for you."
+    # length = len(text)
+    # print(length)
     separator = "-" * 47
     message = (
         f"Hi there!\n"
