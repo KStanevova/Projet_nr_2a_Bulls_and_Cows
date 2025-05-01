@@ -8,12 +8,14 @@ email: KStanevova@seznam.cz
 import random
 import time
 
+# TODO generuj náhodné 4 ciferné číslo bez opakování
 def generate_secret_number():
     digits = list(range(1, 10))  # číslice 1-9
     random.shuffle(digits)
     secret_number = digits[:4]
     return ''.join(map(str, secret_number))
 
+# TODO ověř, že uživatel zadal 4 ciferné číslo bez opakování
 def validate_guess(guess):
     if len(guess) != 4:
         return "The number must have exactly 4 digits."
@@ -29,11 +31,13 @@ def validate_guess(guess):
 
     return None
 
+# TODO vyhodnoť, kolik bulls a cows uživatel uhodl
 def evaluate_guess(secret, guess):
     bulls = sum(1 for s, g in zip(secret, guess) if s == g)
     cows = sum(1 for g in guess if g in secret) - bulls
     return bulls, cows
 
+# TODO hlavní funkce hry
 def play_game():
     separator = "-" * 47  # 47 znaků dlouhý separátor
     print(f"Hi there!\n"f"{separator}\n"f"I've generated a random 4 digit number for you.\n"f"Let's play a bulls and cows game.\n"f"{separator}")
