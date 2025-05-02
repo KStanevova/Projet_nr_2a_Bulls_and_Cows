@@ -11,9 +11,7 @@ import time
 
 def generate_secret_number():
     """Generates a random 4-digit number with unique digits."""
-    digits = list(range(1, 10))  # číslice 1-9
-    random.shuffle(digits)
-    secret_number = digits[:4]
+    secret_number = random.sample(range(1, 10), 4)
     return ''.join(map(str, secret_number))
 
 
@@ -23,7 +21,7 @@ def validate_guess(guess):
         return "The number must have exactly 4 digits."
     if not guess.isdigit():
         return "The number must contain only digits."
-    if guess[0] == '0':
+    if guess.startswith("0"):
         return "The number must not start with a zero."
     if len(set(guess)) != 4:
         return "The number must not contain duplicates."
@@ -32,8 +30,8 @@ def validate_guess(guess):
 
 def evaluate_guess(secret, guess):
     """Evaluates the guess and returns the number of bulls and cows."""
-    bulls = sum(1 for s, g in zip(secret, guess) if s == g)
-    cows = sum(1 for g in guess if g in secret) - bulls
+    bulls = sum(s == g for s, g in zip(secret, guess))
+    cows = sum(g in secret for g in guess) - bulls
     return bulls, cows
 
 
@@ -75,10 +73,12 @@ def play_game():
 
         if bulls == 4:
             duration = time.time() - start_time
+            minutes, seconds = divmod(duration, 60)
             print(
-                f"That's amazing! You guessed the secret number {secret_number} "
-                f"in {attempts} attempts and {duration:.2f} seconds."
+            f"That's amazing! You guessed the secret number {secret_number} "
+            f"in {attempts} attempts and {int(minutes)} minutes {seconds:.2f} seconds."
             )
+
             break
 
 
