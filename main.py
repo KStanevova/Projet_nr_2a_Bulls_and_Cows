@@ -11,10 +11,7 @@ import time
 
 def generate_secret_number():
     """Generates a random 4-digit number with unique digits."""
-    digits = list(range(1, 10))  # číslice 1-9
-    random.shuffle(digits)
-    secret_number = digits[:4]
-    return ''.join(map(str, secret_number))
+    return ''.join(map(str, random.sample(range(1, 10), 4)))
 
 
 def validate_guess(guess):
