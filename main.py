@@ -32,7 +32,7 @@ def validate_guess(guess):
     return None
 
 
- """TODO Compare the user's guess to the secret number and return the number of bulls and cows."""
+"""TODO Compare the user's guess to the secret number and return the number of bulls and cows."""
 def evaluate_guess(secret_number, user_guess):
     bulls = sum(secret_digit == guess_digit for secret_digit, guess_digit in zip(secret_number, user_guess))
     cows = sum(guess_digit in secret_number for guess_digit in user_guess) - bulls
