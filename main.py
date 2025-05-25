@@ -9,8 +9,8 @@ import random
 import time
 
 
-"""TODO Generate a random 4-digit number with unique digits, allowing zero except in the first position."""
 def generate_secret_number():
+    """TODO Generate a random 4-digit number where each digit is unique, chosen from 0-9, and the first digit cannot be zero."""
     digits = list(range(10))
     first_digit = random.choice(digits[1:])  
     digits.remove(first_digit)  
@@ -19,8 +19,15 @@ def generate_secret_number():
     return ''.join(map(str, secret_number))
 
 
-"""TODO: Validate the user's guess by checking its length, uniqueness, format, and ensuring the first digit is not zero."""
 def validate_guess(guess):
+    """TODO Validate the user's guess to ensure:
+    - It has exactly 4 digits.
+    - It contains only numerical digits.
+    - The first digit is not zero.
+    - All digits are unique.
+
+    Returns an error message if invalid, otherwise returns None.
+    """
     if len(guess) != 4:
         return "The number must have exactly 4 digits."
     if not guess.isdigit():
@@ -32,15 +39,20 @@ def validate_guess(guess):
     return None
 
 
-"""TODO Compare the user's guess to the secret number and return the number of bulls and cows."""
 def evaluate_guess(secret_number, user_guess):
+    """TODO Compare the user's guess with the secret number, calculating:
+    - Bulls (correct digit in the correct position).
+    - Cows (correct digit in the wrong position).
+
+    Returns a tuple containing the count of bulls and cows.
+    """
     bulls = sum(secret_digit == guess_digit for secret_digit, guess_digit in zip(secret_number, user_guess))
     cows = sum(guess_digit in secret_number for guess_digit in user_guess) - bulls
     return bulls, cows
 
 
-"""TODO Display a welcome message and game instructions."""
 def print_welcome_message():
+    """TODO Display a welcome message and game instructions."""
     separator = "-" * 47
     message = (
         f"Hi there!\n"
@@ -52,12 +64,18 @@ def print_welcome_message():
     print(message)
 
 
-"""TODO: Run the Bulls and Cows game by initializing the secret number, tracking the number of attempts,
-validating user input, and providing feedback. The game continues until the user correctly guesses
-the secret number, after which the total time taken and number of attempts are displayed."""
 def play_game():
-    print_welcome_message()
+    """Starts and runs the Bulls and Cows game.
 
+    The game flow:
+    - Generates a secret 4-digit number.
+    - Tracks the number of attempts.
+    - Validates user input and provides feedback.
+    - Continues until the correct number is guessed.
+    - Displays the total attempts and time taken at the end.
+    """
+    print_welcome_message() 
+    
     secret_number = generate_secret_number()
     start_time = time.time()
     attempts = 0
